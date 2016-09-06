@@ -20,7 +20,6 @@ import android.view.ViewGroup;
  */
 public class GridFragment extends Fragment implements KittenClickListener {
 
-    private static final int GRID_SIZE = 24;
 
     @Nullable
     @Override
@@ -33,7 +32,7 @@ public class GridFragment extends Fragment implements KittenClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(new KittenGridAdapter(GRID_SIZE, this));
+        recyclerView.setAdapter(new KittenGridAdapter(ResourceLoader.RESOUCE_COUNT, this));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
@@ -55,9 +54,9 @@ public class GridFragment extends Fragment implements KittenClickListener {
 
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .addSharedElement(holder.image, "kittenImage")
-                .addSharedElement(holder.title, "kittenTitle")
-                .addSharedElement(holder.container, "kittenContainer")
+                .addSharedElement(holder.image, "detail_image_" + position)
+                .addSharedElement(holder.title, "detail_title_" + position)
+                .addSharedElement(holder.container, "detail_container_" + position)
                 .replace(R.id.container, kittenDetails)
                 .addToBackStack(null)
                 .commit();

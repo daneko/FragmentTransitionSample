@@ -6,6 +6,8 @@ import android.support.annotation.DrawableRes;
  */
 public class ResourceLoader {
 
+    public static final int RESOUCE_COUNT = 24;
+
     private ResourceLoader() {
 
     }

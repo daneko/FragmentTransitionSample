@@ -1,14 +1,21 @@
 package com.example.fragmenttransitions;
 
 import android.os.Bundle;
-import android.support.annotation.IntRange;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.support.annotation.IntRange;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 
 /**
  * Display details for a given kitten
@@ -36,12 +43,31 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.details_fragment, container, false);
 
+        ViewPager pager = (ViewPager) view.findViewById(R.id.view_pager);
+        PagerAdapter adapter = new DetailFragmentAdapter(getChildFragmentManager());
+        pager.setAdapter(adapter);
         Bundle args = getArguments();
-        DetailChildFragment fragment = DetailChildFragment.newInstance(args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1);
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.child_container, fragment)
-                .commit();
+        int num = args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1;
+        Log.d("test", "num: " + num);
+        pager.setCurrentItem(num);
         return view;
+    }
+
+    public static class DetailFragmentAdapter extends FragmentPagerAdapter {
+
+        public DetailFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return DetailChildFragment.newInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return ResourceLoader.RESOUCE_COUNT;
+        }
     }
 
 
@@ -57,6 +83,11 @@ public class DetailsFragment extends Fragment {
             return fragment;
         }
 
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,15 +96,19 @@ public class DetailsFragment extends Fragment {
 
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-            ImageView image = (ImageView) view.findViewById(R.id.image);
 
             Bundle args = getArguments();
             int kittenNumber = args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1;
 
+            ImageView image = (ImageView) view.findViewById(R.id.image);
             image.setImageResource(ResourceLoader.load(kittenNumber));
 
-            TextView tv = (TextView)view.findViewById(R.id.detail_title);
+            TextView tv = (TextView) view.findViewById(R.id.detail_title);
             tv.setText(getString(R.string.title_text, kittenNumber));
+
+            ViewCompat.setTransitionName(view, "detail_container_" + kittenNumber);
+            ViewCompat.setTransitionName(image, "detail_image_" + kittenNumber);
+            ViewCompat.setTransitionName(tv, "detail_title_" + kittenNumber);
         }
     }
 }
