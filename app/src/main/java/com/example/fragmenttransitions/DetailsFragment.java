@@ -34,21 +34,46 @@ public class DetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.details_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ImageView image = (ImageView) view.findViewById(R.id.image);
+        View view = inflater.inflate(R.layout.details_fragment, container, false);
 
         Bundle args = getArguments();
-        int kittenNumber = args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1;
+        DetailChildFragment fragment = DetailChildFragment.newInstance(args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1);
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.child_container, fragment)
+                .commit();
+        return view;
+    }
 
-        image.setImageResource(ResourceLoader.load(kittenNumber));
 
-        TextView tv = (TextView)view.findViewById(R.id.detail_title);
-        tv.setText(getString(R.string.title_text, kittenNumber));
+    public static class DetailChildFragment extends Fragment {
+
+        public static DetailChildFragment newInstance(@IntRange(from = 1) int kittenNumber) {
+            Bundle args = new Bundle();
+            args.putInt(ARG_KITTEN_NUMBER, kittenNumber);
+
+            DetailChildFragment fragment = new DetailChildFragment();
+            fragment.setArguments(args);
+
+            return fragment;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.detail_child_fragment, container, false);
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            ImageView image = (ImageView) view.findViewById(R.id.image);
+
+            Bundle args = getArguments();
+            int kittenNumber = args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1;
+
+            image.setImageResource(ResourceLoader.load(kittenNumber));
+
+            TextView tv = (TextView)view.findViewById(R.id.detail_title);
+            tv.setText(getString(R.string.title_text, kittenNumber));
+        }
     }
 }
