@@ -34,7 +34,7 @@ public class GridFragment extends Fragment implements KittenClickListener {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setAdapter(new KittenGridAdapter(GRID_SIZE, this));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
     @Override
@@ -56,6 +56,8 @@ public class GridFragment extends Fragment implements KittenClickListener {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .addSharedElement(holder.image, "kittenImage")
+                .addSharedElement(holder.title, "kittenTitle")
+                .addSharedElement(holder.container, "kittenContainer")
                 .replace(R.id.container, kittenDetails)
                 .addToBackStack(null)
                 .commit();

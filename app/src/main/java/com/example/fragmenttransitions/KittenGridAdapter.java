@@ -36,6 +36,7 @@ public class KittenGridAdapter extends RecyclerView.Adapter<KittenViewHolder> {
     @Override
     public void onBindViewHolder(final KittenViewHolder viewHolder, final int position) {
         viewHolder.image.setImageResource(ResourceLoader.load(position));
+        viewHolder.title.setText(viewHolder.title.getContext().getString(R.string.title_text, position));
 
         // It is important that each shared element in the source screen has a unique transition name.
         // For example, we can't just give all the images in our grid the transition name "kittenImage"
@@ -43,6 +44,8 @@ public class KittenGridAdapter extends RecyclerView.Adapter<KittenViewHolder> {
         // By appending "_image" to the position, we can support having multiple shared elements in each
         // grid cell in the future.
         ViewCompat.setTransitionName(viewHolder.image, String.valueOf(position) + "_image");
+        ViewCompat.setTransitionName(viewHolder.title, String.valueOf(position) + "_title");
+        ViewCompat.setTransitionName(viewHolder.container, String.valueOf(position) + "_container");
 
         viewHolder.image.setOnClickListener(new View.OnClickListener() {
             @Override

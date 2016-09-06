@@ -9,13 +9,29 @@
     android:padding="16dp"
     tools:background="@android:color/background_dark">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="@dimen/kitten_preview_size"
-        android:layout_height="@dimen/kitten_preview_size"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center"
-        tools:ignore="ContentDescription"
-        tools:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/kitten_preview_size"
+            android:layout_height="@dimen/kitten_preview_size"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            tools:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:id="@+id/text_title"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            tools:text="title"/>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
