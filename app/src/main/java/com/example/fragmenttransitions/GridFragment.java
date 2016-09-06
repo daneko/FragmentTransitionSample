@@ -20,6 +20,8 @@ import android.view.ViewGroup;
  */
 public class GridFragment extends Fragment implements KittenClickListener {
 
+    private static final int GRID_SIZE = 24;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,15 +33,13 @@ public class GridFragment extends Fragment implements KittenClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(new KittenGridAdapter(6, this));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setAdapter(new KittenGridAdapter(GRID_SIZE, this));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 
     @Override
     public void onKittenClicked(KittenViewHolder holder, int position) {
-        int kittenNumber = (position % 6) + 1;
-
-        DetailsFragment kittenDetails = DetailsFragment.newInstance(kittenNumber);
+        DetailsFragment kittenDetails = DetailsFragment.newInstance(position);
 
         // Note that we need the API version check here because the actual transition classes (e.g. Fade)
         // are not in the support library and are only available in API 21+. The methods we are calling on the Fragment

@@ -19,9 +19,8 @@ public class DetailsFragment extends Fragment {
 
     /**
      * Create a new DetailsFragment
-     * @param kittenNumber The number (between 1 and 6) of the kitten to display
      */
-    public static DetailsFragment newInstance(@IntRange(from = 1, to = 6) int kittenNumber) {
+    public static DetailsFragment newInstance(@IntRange(from = 1) int kittenNumber) {
         Bundle args = new Bundle();
         args.putInt(ARG_KITTEN_NUMBER, kittenNumber);
 
@@ -46,25 +45,6 @@ public class DetailsFragment extends Fragment {
         Bundle args = getArguments();
         int kittenNumber = args.containsKey(ARG_KITTEN_NUMBER) ? args.getInt(ARG_KITTEN_NUMBER) : 1;
 
-        switch (kittenNumber) {
-            case 1:
-                image.setImageResource(R.drawable.placekitten_1);
-                break;
-            case 2:
-                image.setImageResource(R.drawable.placekitten_2);
-                break;
-            case 3:
-                image.setImageResource(R.drawable.placekitten_3);
-                break;
-            case 4:
-                image.setImageResource(R.drawable.placekitten_4);
-                break;
-            case 5:
-                image.setImageResource(R.drawable.placekitten_5);
-                break;
-            case 6:
-                image.setImageResource(R.drawable.placekitten_6);
-                break;
-        }
+        image.setImageResource(ResourceLoader.load(kittenNumber));
     }
 }

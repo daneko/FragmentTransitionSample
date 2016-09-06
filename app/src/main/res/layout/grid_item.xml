@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="@dimen/kitten_preview_padding">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="16dp"
+    tools:background="@android:color/background_dark">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/kitten_preview_size"
         android:layout_height="@dimen/kitten_preview_size"
         android:scaleType="centerCrop"
-        tools:ignore="ContentDescription" />
+        android:layout_gravity="center"
+        tools:ignore="ContentDescription"
+        tools:src="@mipmap/ic_launcher"/>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
