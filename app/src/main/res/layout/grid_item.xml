@@ -20,7 +20,7 @@
             android:layout_width="@dimen/kitten_preview_size"
             android:layout_height="@dimen/kitten_preview_size"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             tools:ignore="ContentDescription"
             tools:src="@mipmap/ic_launcher"/>
 

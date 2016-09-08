@@ -12,6 +12,18 @@ import android.widget.TextView;
  * @author bherbst
  */
 public class KittenViewHolder extends RecyclerView.ViewHolder {
+    public CardView getContainer() {
+        return container;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public TextView getTitle() {
+        return title;
+    }
+
     CardView container;
     ImageView image;
     TextView title;
